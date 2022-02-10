@@ -50,12 +50,15 @@ class Persons extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_person' => 'Id Person',
+            'id_person' => 'ID Personel',
             'nama' => 'Nama',
             'nik' => 'NIK',
             'jk' => 'Jenis Kelamin',
             'tgl_lahir' => 'Tanggal Lahir',
             'tempat_lahir' => 'Tempat Lahir',
+            'role' => 'Role',
+            'status_menikah' => 'Status Menikah',
+            'tanggal_menikah' => 'Tanggal Menikah'
         ];
     }
 
@@ -114,5 +117,38 @@ class Persons extends \yii\db\ActiveRecord
     public static function find()
     {
         return new PersonsQuery(get_called_class());
+    }
+
+    public function tanggalMenikah($id_person){
+        if (($model = Dosen::findOne(['id_person' => $id_person])) !== null) {
+            return $model->tanggal_menikah;
+        } else if (($model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
+            return $model->tanggal_menikah;
+        } else if (($model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
+            return $model->tanggal_menikah;
+        } 
+    }
+
+    public function statusMenikah($id_person){
+        if (($model = Dosen::findOne(['id_person' => $id_person])) !== null) {
+            return $model->status_menikah;
+        } else if (($model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
+            return $model->status_menikah;
+        } else if (($model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
+            return $model->status_menikah;
+        } 
+    }
+
+    function findRole($id_person)
+    {
+        if (($model = Dosen::findOne(['id_person' => $id_person])) !== null) {
+            return "Dosen";
+        } else if (($model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
+            return "Mahasiswa";
+        } else if (($model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
+            return "Pegawai";
+        } else {
+            return "Tidak ada role";
+        }
     }
 }

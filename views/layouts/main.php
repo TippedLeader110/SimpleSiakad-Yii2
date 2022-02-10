@@ -48,10 +48,10 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Persons', 'url' => ['/site/persons']],
-            ['label' => 'Pegawai', 'url' => ['/site/pegawai']],
-            ['label' => 'Mahasiswa', 'url' => ['/site/mahasiswa']],
-            ['label' => 'Dosen', 'url' => ['/site/dosen']],
+            ['label' => 'Persons', 'url' => ['/persons/index']],
+            ['label' => 'Pegawai', 'url' => ['/persons/rolelist', 'role' => 3]],
+            ['label' => 'Mahasiswa', 'url' => ['/persons/rolelist', 'role'=>2]],
+            ['label' => 'Dosen', 'url' => ['/persons/rolelist', 'role'=>1]],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (

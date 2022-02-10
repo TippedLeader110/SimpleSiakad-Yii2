@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "jenis_riwayat".
@@ -42,6 +43,13 @@ class JenisRiwayat extends \yii\db\ActiveRecord
             'id_jenisriwayat' => 'Id Jenisriwayat',
             'nama_jenisriwayat' => 'Nama Jenisriwayat',
         ];
+    }
+
+    public function getJenisItems()
+    {
+        $items = $this->find()->all();
+        $items = ArrayHelper::map($items, 'id_jenisriwayat', 'nama_jenisriwayat');
+        return $items;
     }
 
     /**

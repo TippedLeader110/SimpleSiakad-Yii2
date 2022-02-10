@@ -12,15 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nama') ?>
+    <?= $form->field($model, 'nik')->textInput(['type'=>'number']) ?>
+    <?= $form->field($model, 'tempat_lahir') ?>
+    <?= $form->field($model, 'tgl_lahir')->widget(yii\jui\DatePicker::classname(), [
+        'dateFormat' => 'yyyy-MM-dd',
+        "options" => [
+            'class' => 'form-control'
+        ]]) ?>
 
-    <?= $form->field($model, 'nik')->textInput() ?>
-
-    <?= $form->field($model, 'jk')->textInput() ?>
-
-    <?= $form->field($model, 'tgl_lahir')->textInput() ?>
-
-    <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'jk')->dropDownList([1 => "Laki Laki", 2 => "Perempuan"],  ['prompt' => '']);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

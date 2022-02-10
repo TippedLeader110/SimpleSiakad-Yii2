@@ -19,11 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Persons', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Personil', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Jenis Riwayat', ['createjenisriwayat'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,14 +36,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_person',
             'nama',
             'nik',
-            'jk',
+            [
+                'attribute' => 'jk',
+                'filter' => ['1' => "Laki-Laki", '2' => "Perempuan"],
+                'value' => function ($model, $key, $index) {
+                    if ($model->jk == 1) {
+                        return "Laki-Laki";
+                    } else {
+                        return "Perempuan";
+                    }
+                },
+            ],
             'tgl_lahir',
-            //'tempat_lahir',
+            'tempat_lahir',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Persons $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id_person' => $model->id_person]);
-                 }
+                }
             ],
         ],
     ]); ?>

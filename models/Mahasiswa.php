@@ -4,7 +4,7 @@ namespace app\models;
 
 use Yii;
 
-/*
+/**
  * This is the model class for table "mahasiswa".
  *
  * @property int $id_mahasiswa
@@ -54,10 +54,19 @@ class Mahasiswa extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Person]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveQuery|PersonsQuery
      */
     public function getPersons()
     {
         return $this->hasOne(Persons::className(), ['id_person' => 'id_person']);
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return MahasiswaQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new MahasiswaQuery(get_called_class());
     }
 }
