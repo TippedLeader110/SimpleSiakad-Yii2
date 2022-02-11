@@ -48,9 +48,9 @@ class InfoRiwayat extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_riwayat' => '',
-            'id_person' => '',
-            'jenis_role' => '',
+            'id_riwayat' => 'ID Riwayat',
+            'id_person' => 'ID Person',
+            'jenis_role' => 'Jenis Role',
             'id_jenisriwayat' => 'Jenis Riwayat',
             'riwayat' => 'Riwayat',
             'tgl_riwayat' => 'Tanggal Riwayat',

@@ -18,7 +18,7 @@ class PersonsSearch extends Persons
     {
         return [
             [['id_person', 'nik', 'jk'], 'integer'],
-            [['nama', 'tgl_lahir', 'tempat_lahir'], 'safe'],
+            [['nama', 'tgl_lahir', 'tempat_lahir', 'role'], 'safe'],
         ];
     }
 
@@ -62,9 +62,11 @@ class PersonsSearch extends Persons
             'nik' => $this->nik,
             'jk' => $this->jk,
             'tgl_lahir' => $this->tgl_lahir,
+            'role' => $this->role
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
+            ->andFilterWhere(['like', 'role', $this->role])
             ->andFilterWhere(['like', 'tempat_lahir', $this->tempat_lahir]);
 
         return $dataProvider;

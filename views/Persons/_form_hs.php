@@ -14,8 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?php $model->id_person = $id_person ?>
 
-    <?= $form->field($model, 'id_person')->textInput(['styles' => 'display:none' ,'hidden' => true, 'value' => $id_person]) ?>
-    <?= $form->field($model, 'jenis_role')->textInput(['styles' => 'display:none' ,'hidden' => true, 'value' => $role]) ?>
+    <?= $form->field($model, 'id_person')->label(false)->textInput(['styles' => 'display:none' ,'hidden' => true, 'value' => $id_person]) ?>
+    <?= $form->field($model, 'jenis_role')->label(false)->textInput(['styles' => 'display:none' ,'hidden' => true, 'value' => $role]) ?>
 
     <?= $form->field($model, 'id_jenisriwayat')->dropDownList($model_jenis,  ['prompt' => '']);
     ?>

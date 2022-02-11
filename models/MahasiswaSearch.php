@@ -36,7 +36,7 @@ class MahasiswaSearch extends Mahasiswa{
      */
     public function search($params)
     {
-        $query = Mahasiswa::find()->innerJoinWith('persons', 'persons.id_person = mahasiswa.id_person');
+        $query = Mahasiswa::find()->innerJoinWith('persons', 'persons.id_person = mahasiswa.id_person')->where(["persons.role" => 2]);
 
         // add conditions that should always apply here
 

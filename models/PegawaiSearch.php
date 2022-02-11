@@ -36,7 +36,7 @@ class PegawaiSearch extends Pegawai{
      */
     public function search($params)
     {
-        $query = Pegawai::find()->innerJoinWith('persons', 'persons.id_person = Pegawai.id_person');
+        $query = Pegawai::find()->innerJoinWith('persons', 'persons.id_person = Pegawai.id_person')->where(["persons.role" => 3]);
 
         // add conditions that should always apply here
 

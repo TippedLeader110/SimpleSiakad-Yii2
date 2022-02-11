@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Tambah Riwayat';
 $this->params['breadcrumbs'][] = ['label' => 'Persons', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Info Detail', 'url' => ['view', "id_person" => $id_person]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="persons-create">

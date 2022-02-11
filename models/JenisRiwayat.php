@@ -41,7 +41,7 @@ class JenisRiwayat extends \yii\db\ActiveRecord
     {
         return [
             'id_jenisriwayat' => 'Id Jenisriwayat',
-            'nama_jenisriwayat' => 'Nama Jenisriwayat',
+            'nama_jenisriwayat' => 'Nama Kategori Riwayat',
         ];
     }
 

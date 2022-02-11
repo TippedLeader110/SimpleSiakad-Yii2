@@ -55,6 +55,15 @@ class PersonsController extends Controller
         ]);
     }
 
+    public function actionReport($id_person){
+        $role = $this->findRole($id_person);
+
+        return $this->render('report', [
+            'model' => $this->findModel($id_person),
+            'role' => $role
+        ]);
+    }
+
     public function actionRolelist($role)
     {
         if($role==1){
@@ -178,7 +187,7 @@ class PersonsController extends Controller
         $role = $this->findRole($id_person);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', ['id_person' => $model->id_person]]);
+            return $this->redirect(['view', 'id_person' => $model->id_person]);
         }
 
         return $this->render('update', [
@@ -192,15 +201,17 @@ class PersonsController extends Controller
         $role = $this->request->post('role');
         $id_person = $this->request->post('id_person');
 
-        if ($role == 1) {
-            $roleModel = new Dosen();
-        } else if ($role == 2) {
-            $roleModel = new Mahasiswa();
-        } else if ($role == 3) {
-            $roleModel = new Pegawai();
-        }
+        // if ($role == 1) {
+        //     $roleModel = new Dosen();
+        // } else if ($role == 2) {
+        //     $roleModel = new Mahasiswa();
+        // } else if ($role == 3) {
+        //     $roleModel = new Pegawai();
+        // }
 
-        $roleModel->id_person = $id_person;
+        $roleModel = $this->findModel($id_person);
+        // $roleModel->id_person = $id_person;
+        $roleModel->role = $role;
         $roleModel->save();
         return $this->redirect(['view', 'id_person' => $id_person]);
         // return $this->renderAjax('role', ['model' => $model]);
@@ -238,7 +249,9 @@ class PersonsController extends Controller
 
     public function actionMenikah($id_person)
     {
-        if (($model = Dosen::findOne(['id_person' => $id_person])) !== null) {
+        $role = $this->findRole($id_person);
+
+        if ($role==1 && ( $model = Dosen::findOne(['id_person' => $id_person])) !== null) {
             $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
             if($model->status_menikah==0){
                 $model->status_menikah = 1;
@@ -249,7 +262,7 @@ class PersonsController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id_person' => $id_person]);
             }
-        } else if (($model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
+        } else if ($role==2 &&( $model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
             $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
             if($model->status_menikah==0){
                 $model->status_menikah = 1;
@@ -260,7 +273,7 @@ class PersonsController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id_person' => $id_person]);
             }
-        } else if (($model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
+        } else if ($role==3 &&( $model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
             $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
             if($model->status_menikah==0){
                 $model->status_menikah = 1;
@@ -307,14 +320,15 @@ class PersonsController extends Controller
 
     protected function findRole($id_person)
     {
-        if (($model = Dosen::findOne(['id_person' => $id_person])) !== null) {
-            return 1;
-        } else if (($model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
-            return 2;
-        } else if (($model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
-            return 3;
-        } else {
-            return 0;
-        }
+        return $this->findModel($id_person)->role;
+        // if (($model = Dosen::findOne(['id_person' => $id_person])) !== null) {
+        //     return 1;
+        // } else if (($model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
+        //     return 2;
+        // } else if (($model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
+        //     return 3;
+        // } else {
+        //     return 0;
+        // }
     }
 }

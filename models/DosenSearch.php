@@ -36,7 +36,7 @@ class DosenSearch extends Dosen{
      */
     public function search($params)
     {
-        $query = Dosen::find()->innerJoinWith('persons', 'persons.id_person = Dosen.id_person');
+        $query = Dosen::find()->innerJoinWith('persons', 'persons.id_person = Dosen.id_person')->where(["persons.role" => 1]);
 
         // add conditions that should always apply here
 

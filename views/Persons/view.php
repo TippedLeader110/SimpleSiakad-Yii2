@@ -31,6 +31,7 @@ if ($role == 1) {
     <h1><?= Html::encode($model->nama) ?> [<?php echo $rr ?>]</h1>
     <p>
         <?= Html::a('Update', ['update', 'id_person' => $model->id_person], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Report', ['report', 'id_person' => $model->id_person], ['class' => 'btn btn-primary']) ?>
         
         <!-- <?= Html::a('Pilih Role', ['role', 'id_person' => $model->id_person], ['class' => 'btn btn-warning']) ?> -->
         <?= Html::button('Pilih Role', ['class' => 'btn btn-warning', 'onclick' => 'modalView();']); ?>
@@ -60,12 +61,26 @@ if ($role == 1) {
             'nama',
             'nik',
             [
+                'attribute' => 'role',
+                'value' => function($model, $key){
+                    if($model->role==1){
+                        return "Dosen";
+                    }else if($model->role==2){
+                        return "Mahasiswa";
+                    }else if($model->role==3){
+                        return "Pegawai";
+                    }else{
+                        return "Tidak ada role";
+                    }
+                }
+            ],
+            [
                 'attribute' => 'jk',
                 'value' => (($model->jk == 1) ? "Laki-Laki" : 'Perempuan')
             ], [
                 'attribute' => 'status_menikah',
                 'value' => function ($model, $key) {
-                    if ($model->statusMenikah($model->id_person) == 0) {
+                    if ($model->statusMenikah($model->id_person, $model->role) == 0) {
                         return "Belum Menikah";
                     } else {
                         return "Sudah Menikah";

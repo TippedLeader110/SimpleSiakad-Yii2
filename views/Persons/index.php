@@ -37,6 +37,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama',
             'nik',
             [
+                'attribute' => 'role',
+                'filter' => [1 => "Dosen", 2 => "Mahasiswa", 3 => "Pegawai"],
+                'value' => function($model, $key){
+                    if($model->role==1){
+                        return "Dosen";
+                    }else if($model->role==2){
+                        return "Mahasiswa";
+                    }else if($model->role==3){
+                        return "Pegawai";
+                    }else{
+                        return "Tidak ada role";
+                    }
+                }
+            ],
+            [
                 'attribute' => 'jk',
                 'filter' => ['1' => "Laki-Laki", '2' => "Perempuan"],
                 'value' => function ($model, $key, $index) {
