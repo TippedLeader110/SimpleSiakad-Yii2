@@ -249,44 +249,50 @@ class PersonsController extends Controller
 
     public function actionMenikah($id_person)
     {
-        $role = $this->findRole($id_person);
+        $role = $this->findModel($id_person);
+        $role->status_menikah = 1;
+        $role->role_menikah = $role->role;
+        $role->tanggal_menikah = date("Y-m-d", strtotime('Now'));
+        $role->save();
 
-        if ($role==1 && ( $model = Dosen::findOne(['id_person' => $id_person])) !== null) {
-            $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
-            if($model->status_menikah==0){
-                $model->status_menikah = 1;
-            }else{
-                $model->status_menikah = 0;
-                $model->tanggal_menikah = null;
-            }
-            if($model->save()){
-                return $this->redirect(['view', 'id_person' => $id_person]);
-            }
-        } else if ($role==2 &&( $model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
-            $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
-            if($model->status_menikah==0){
-                $model->status_menikah = 1;
-            }else{
-                $model->status_menikah = 0;
-                $model->tanggal_menikah = null;
-            }
-            if($model->save()){
-                return $this->redirect(['view', 'id_person' => $id_person]);
-            }
-        } else if ($role==3 &&( $model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
-            $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
-            if($model->status_menikah==0){
-                $model->status_menikah = 1;
-            }else{
-                $model->status_menikah = 0;
-                $model->tanggal_menikah = null;
-            }
-            if($model->save()){
-                return $this->redirect(['view', 'id_person' => $id_person]);
-            }
-        }else{
-            return $this->redirect(['view', 'id_person' => $id_person]);
-        }
+        return $this->redirect(['view', 'id_person' => $id_person]);
+
+        // if ($role==1 && ( $model = Dosen::findOne(['id_person' => $id_person])) !== null) {
+        //     $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
+        //     if($model->status_menikah==0){
+        //         $model->status_menikah = 1;
+        //     }else{
+        //         $model->status_menikah = 0;
+        //         $model->tanggal_menikah = null;
+        //     }
+        //     if($model->save()){
+        //         return $this->redirect(['view', 'id_person' => $id_person]);
+        //     }
+        // } else if ($role==2 &&( $model = Mahasiswa::findOne(['id_person' => $id_person])) !== null) {
+        //     $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
+        //     if($model->status_menikah==0){
+        //         $model->status_menikah = 1;
+        //     }else{
+        //         $model->status_menikah = 0;
+        //         $model->tanggal_menikah = null;
+        //     }
+        //     if($model->save()){
+        //         return $this->redirect(['view', 'id_person' => $id_person]);
+        //     }
+        // } else if ($role==3 &&( $model = Pegawai::findOne(['id_person' => $id_person])) !== null) {
+        //     $model->tanggal_menikah = date("Y-m-d", strtotime('Now'));
+        //     if($model->status_menikah==0){
+        //         $model->status_menikah = 1;
+        //     }else{
+        //         $model->status_menikah = 0;
+        //         $model->tanggal_menikah = null;
+        //     }
+        //     if($model->save()){
+        //         return $this->redirect(['view', 'id_person' => $id_person]);
+        //     }
+        // }else{
+        //     return $this->redirect(['view', 'id_person' => $id_person]);
+        // }
 
     }
 

@@ -40,27 +40,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model, $key, $index){
                     return $model->persons->nama;
                 }
-            ],
-            [
-                'attribute' => 'status_menikah',
-                'filter' => ['0'=>"Belum Menikah", '1'=>"Sudah Menikah"],
+            ],[
+                'attribute' => 'persons.nik',
                 'value' => function($model, $key, $index){
-                    if($model->status_menikah==0){
-                        return "Belum menikah";
-                    }else{
-                        return "Sudah menikah";
-                    }
-                },
-            ],
-            [ 
-                'attribute' => 'tanggal_menikah',
+                    return $model->persons->nik;
+                }
+            ],[
+                'attribute' => 'persons.tgl_lahir',
                 'value' => function($model, $key, $index){
-                    if($model->tanggal_menikah==NULL){
-                        return "Belum menikah";
-                    }
+                    return $model->persons->tgl_lahir;
+                }
+            ],[
+                'attribute' => 'persons.tempat_lahir',
+                'value' => function($model, $key, $index){
+                    return $model->persons->tempat_lahir;
                 }
             ],
-            //'tempat_lahir',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Mahasiswa $model, $key, $index, $column) {

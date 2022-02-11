@@ -12,12 +12,15 @@ use app\models\Mahasiswa;
 class MahasiswaSearch extends Mahasiswa{
 
     public $nama;
+    public $tgl_lahir;
+    public $tempat_lahir;
+    public $nik;
 
     public function rules()
     {
         return [
             [['id_person'], 'integer'],
-            [['tanggal_menikah', 'status_menikah', 'nama'], 'safe'],
+            [['tanggal_menikah', 'status_menikah', 'nama', 'tgl_lahir', 'tempat_lahir', 'nik'], 'safe'],
         ];
     }
 
@@ -56,10 +59,13 @@ class MahasiswaSearch extends Mahasiswa{
         $query->andFilterWhere([
             'id_person' => $this->id_person,
             'status_menikah' => $this->status_menikah,
-            'tanggal_menikah' => $this->tanggal_menikah
+            'tanggal_menikah' => $this->tanggal_menikah,
         ]);
 
         $query->andFilterWhere(['like', 'persons.nama', $this->nama])
+            ->andFilterWhere(['like', 'persons.tgl_lahir', $this->tgl_lahir])
+            ->andFilterWhere(['like', 'persons.nik', $this->nik])
+            ->andFilterWhere(['like', 'persons.tempat_lahir', $this->tempat_lahir])
             ->andFilterWhere(['like', 'tanggal_menikah', $this->tanggal_menikah]);
 
         return $dataProvider;

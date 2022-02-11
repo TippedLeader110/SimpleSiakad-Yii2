@@ -35,8 +35,7 @@ if ($role == 1) {
         
         <!-- <?= Html::a('Pilih Role', ['role', 'id_person' => $model->id_person], ['class' => 'btn btn-warning']) ?> -->
         <?= Html::button('Pilih Role', ['class' => 'btn btn-warning', 'onclick' => 'modalView();']); ?>
-        <?php if ($rr != 'Tidak ada role') {
-            echo Html::a('Tambah Riwayat', ['createriwayat', 'id_person' => $model->id_person, 'role' => $role], ['class' => 'btn btn-success']) ; echo "&nbsp;";
+        <?php if($model->status_menikah==0 && $model->role>0){
             echo Html::a('Ganti status menikah', ['menikah', 'id_person' => $model->id_person], [
                 'class' => 'btn btn-warning',
                 'data' => [
@@ -44,6 +43,9 @@ if ($role == 1) {
                     'method' => 'post',
                 ],
             ]);
+        } ?>
+        <?php if ($rr != 'Tidak ada role') {
+            echo Html::a('Tambah Riwayat', ['createriwayat', 'id_person' => $model->id_person, 'role' => $role], ['class' => 'btn btn-success']) ; echo "&nbsp;";
         }  ?>
         <?= Html::a('Delete', ['delete', 'id_person' => $model->id_person], [
             'class' => 'btn btn-danger',
@@ -80,7 +82,13 @@ if ($role == 1) {
             ], [
                 'attribute' => 'status_menikah',
                 'value' => function ($model, $key) {
-                    if ($model->statusMenikah($model->id_person, $model->role) == 0) {
+                    // if ($model->statusMenikah($model->id_person, $model->role) == 0) {
+                    //     return "Belum Menikah";
+                    // } else {
+                    //     return "Sudah Menikah";
+                    // }
+
+                    if ($model->status_menikah == 0) {
                         return "Belum Menikah";
                     } else {
                         return "Sudah Menikah";
@@ -90,7 +98,8 @@ if ($role == 1) {
             ],[
                 'attribute' => 'tanggal_menikah',
                 'value' => function ($model, $key) {
-                    return $model->tanggalMenikah($model->id_person);
+                    // return $model->tanggalMenikah($model->id_person);
+                    return $model->tanggal_menikah;
                 },
             ],
             'tgl_lahir',

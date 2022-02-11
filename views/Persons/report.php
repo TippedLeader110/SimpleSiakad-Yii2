@@ -66,51 +66,29 @@ if ($role == 1) {
         'model' => $model,
         'attributes' => [
             [
-                'attribute' => 'dosen.status_menikah',
-                'label' => 'Status menikah saat menjadi dosen',
+                'attribute' => 'status_menikah',
+                'label' => 'Status menikah ',
                 'value' => function ($model, $key) {
-                    if ($model->dosen->status_menikah == 0) {
+                    if ($model->status_menikah == 0) {
                         return "Belum Menikah";
                     } else {
-                        return "Sudah Menikah";
+                        $rk = 0;
+                        if($model->role_menikah == 1){
+                            $rk = "Dosen";
+                        }else if($model->role_menikah==2){
+                            $rk = "Mahasiswa";
+                        }else{
+                            $rk = "Pegawai";
+                        }
+                        return "Sudah Menikah saat menjadi " . $rk;
                     }
                 },
             ], [
-                'attribute' => 'dosen.tanggal_menikah',
+                'attribute' => 'tanggal_menikah',
                 'value' => function ($model, $key) {
-                    return $model->dosen->tanggal_menikah;
+                    return $model->tanggal_menikah;
                 },
-            ], [
-                'attribute' => 'mahasiswa.status_menikah',
-                'label' => 'Status menikah saat menjadi mahasiswa',
-                'value' => function ($model, $key) {
-                    if ($model->mahasiswa->status_menikah == 0) {
-                        return "Belum Menikah";
-                    } else {
-                        return "Sudah Menikah";
-                    }
-                },
-            ], [
-                'attribute' => 'mahasiswa.tanggal_menikah',
-                'value' => function ($model, $key) {
-                    return $model->mahasiswa->tanggal_menikah;
-                },
-            ], [
-                'attribute' => 'pegawai.status_menikah',
-                'label' => 'Status menikah saat menjadi pegawai',
-                'value' => function ($model, $key) {
-                    if ($model->pegawai->status_menikah == 0) {
-                        return "Belum Menikah";
-                    } else {
-                        return "Sudah Menikah";
-                    }
-                },
-            ], [
-                'attribute' => 'pegawai.tanggal_menikah',
-                'value' => function ($model, $key) {
-                    return $model->pegawai->tanggal_menikah;
-                },
-            ],
+            ], 
         ]
     ]) ?>
 

@@ -14,6 +14,9 @@ use Yii;
  * @property int $jk
  * @property string $tgl_lahir
  * @property string $tempat_lahir
+ * @property int $status_menikah
+ * @property string|null $tanggal_menikah
+ * @property int|null $role_menikah
  *
  * @property Dosen $dosen
  * @property InfoRiwayat[] $infoRiwayats
@@ -37,8 +40,8 @@ class Persons extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'nik', 'jk', 'tgl_lahir', 'tempat_lahir'], 'required'],
-            [['role', 'jk'], 'integer'],
-            [['tgl_lahir'], 'safe'],
+            [['role', 'jk', 'status_menikah', 'role_menikah'], 'integer'],
+            [['tgl_lahir', 'tanggal_menikah'], 'safe'],
             [['nama'], 'string', 'max' => 124],
             [['nik', 'tempat_lahir'], 'string', 'max' => 32],
             [['nik'], 'unique'],
@@ -58,8 +61,13 @@ class Persons extends \yii\db\ActiveRecord
             'jk' => 'Jenis Kelamin',
             'tgl_lahir' => 'Tanggal Lahir',
             'tempat_lahir' => 'Tempat Lahir',
+            'status_menikah' => 'Status Menikah',
+            'tanggal_menikah' => 'Tanggal Menikah',
+            'role_menikah' => 'Role saat Menikah',
         ];
     }
+
+    
     public function getJk(){
         if($this->jk==1){
             return "Laki-Laki";

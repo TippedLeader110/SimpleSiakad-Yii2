@@ -40,26 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model, $key, $index){
                     return $model->persons->nama;
                 }
-            ],
-            [
-                'attribute' => 'status_menikah',
-                'filter' => ['0'=>"Belum Menikah", '1'=>"Sudah Menikah"],
-                'value' => function($model, $key, $index){
-                    if($model->status_menikah==0){
-                        return "Belum menikah";
-                    }else{
-                        return "Sudah menikah";
-                    }
-                },
-            ],
-            [ 
-                'attribute' => 'tanggal_menikah',
-                'value' => function($model, $key, $index){
-                    if($model->tanggal_menikah==NULL){
-                        return "Belum menikah";
-                    }
-                }
-            ],
+            ],'persons.nik',
+            'persons.tgl_lahir',
+            'persons.tempat_lahir',
             //'tempat_lahir',
             [
                 'class' => ActionColumn::className(),
